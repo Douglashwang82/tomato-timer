@@ -1,13 +1,123 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+  :root{
+    background-color:#FFF9F0;
+    color:black;
+    font-family: 'Caveat', cursive;
+  }
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.test {
+  background: yellow;
+}
+/* Timer */
+.timer-btn {
+  display: grid;
+  width: 70%;
+  margin:auto;
+  grid-template-columns: auto auto auto;
+  gap:10px;
+
+}
+.text-timer {
+  font-size:calc(100px + 15vw);
+
+}
+.text-event-name {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top:calc(5px + 4vw);
+  font-size:calc(5px + 4vw);
+}
+.text-input {
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  top:3vw;
+  font-size:calc(5px + 3vw);
+}
+
+.input-customize{
+  text-align: center;
+  font-size: 50px;
+  width:40%;
+}
+.btn-customize {
+  position: relative;
+  border:none;
+  color:black;
+  z-index: 2;
+  background-size:20%;
+  text-transform:none;
+  font-size: calc(25px + 2vw);
+  
+
+}
+
+
+.btn-customize:hover {
+  outline: none;
+  color: grey;
+  background-color: floralwhite;
+}
+.btn-customize:active {
+  outline: none;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.btn-customize:focus {
+  outline: none;
+  
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+
+/* Tree */
+.label-break{
+  color: grey;
+  font-size: 15px;
+}
+
+.li-div div {
+  display:grid;
+  text-align: left; 
+  padding-top:10%;
+  
+}
+
+.li-div label {
+  font-size: 11px;
+}
+
+.steps-div {
+  width:60%;
+  margin:auto;
+  margin-top: 50px;
+}
+
+
+
+
+@media only screen and (max-width: 1300px) {
+  .timer-btn{
+    width: 90%;
+  }
+  .steps-div {
+    width:80%;
+  }
+  .input-customize{
+    text-align: center;
+    font-size: 50px;
+    width:90%;
+  }
 }
