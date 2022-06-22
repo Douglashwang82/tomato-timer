@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './App.css'
+import NavBar from './components/navbar/NavBar'
 
 import Timer from './components/timer/Timer'
 import Tree from './components/tree/Tree'
@@ -7,6 +8,7 @@ import Tree from './components/tree/Tree'
 type Event = {
   name:string,
   time:string,
+  type:string,
 }
 
 
@@ -19,6 +21,7 @@ function App() {
   }
   return (
     <div className="App">
+      <NavBar />
       <Timer handleEvents={handleEvents} />
       <Tree events={events}/>
     </div>

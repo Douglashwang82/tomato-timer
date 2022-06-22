@@ -23,13 +23,15 @@ const INITIAL_SECONDS = "00";
 const INITIAL_COUNTS = 2;
 const INITIAL_MINUTES_SHORT_BREAK = "05";
 const INITIAL_SECONDS_SHORT_BREAK = "00";
-const INITIAL_COUNTS_SHORT_BREAK = 300;
+const INITIAL_COUNTS_SHORT_BREAK = 3;
 
 const INITIAL_MINUTES_LONG_BREAK = "10";
 const INITIAL_SECONDS_LONG_BREAK = "00";
-const INITIAL_COUNT_LONG_BREAK = 600;
+const INITIAL_COUNT_LONG_BREAK = 6;
 
 const DEFAULT_EVENT = "DEFAULT";
+const PAUSE_RED_LIGHT = "#FF7C7C";
+const PAUSE_RED_DARK = "#FF7C7C";
 
 const Timer = (props: Props) => {
     const [count, setCount] = useState(INITIAL_COUNTS);
@@ -40,12 +42,19 @@ const Timer = (props: Props) => {
     const [myTimeOutId, setMyTimeOutId] = useState<timeOutType>(undefined);
     const [currEvent, setCurrEvent] = useState("");
     const [startTime, setStartTime] = useState<Date>(new Date);
-    const [endTime, setEndTime] = useState<Date>(new Date);
-
+    const label = document.getElementById('text-timer');
 
 
     // functions
-    const timePause = () => setIsActive(false);
+    const timePause = () => {
+        if(!isActive) return;
+        setIsActive(false);
+        if (label) {
+            // label.style.color = "#FF7C7C"
+            label.classList.add("fade");
+        };
+        
+    }
 
     const updateTime = () => {
         if (count > 0) {
@@ -57,18 +66,49 @@ const Timer = (props: Props) => {
             setSeconds(newSeconds);
         } else {
             // reach 00:00
-            const setEndTime = new Date();
-            const timeString = startTime.getHours() + ":" + startTime.getMinutes() + " - " + endTime.getHours() + ":" + endTime.getMinutes();
-            console.log(startTime.getHours() + ":" + startTime.getMinutes(), endTime.getHours() + ":" + endTime.getMinutes())
+            const endTime = new Date();
+            const timeString = startTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) +  " - " + endTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
             setIsActive(false);
-            props.handleEvents([{
-                name: currEvent,
-                time: timeString,
-            }])
+            switch(timertype){
+                case "working": {
+                    props.handleEvents([{
+                        name: currEvent,
+                        time: timeString,
+                        type: "working",
+                    }])
+                    break; 
+                }
+                case "shortBreak":{
+                    props.handleEvents([{
+                        name: "Short Break",
+                        time: timeString,
+                        type: "shortBreak",
+                    }])
+                    break;
+                }
+                case "longBreak":{
+                    props.handleEvents([{
+                        name: "Long Break",
+                        time: timeString,
+                        type: "longBreak",
+                    }])
+                    break;
+                }
+                default: {
+                    props.handleEvents([{
+                        name: DEFAULT_EVENT,
+                        time: timeString,
+                        type: "working",
+                    }])
+                    break;
+                }
+            }
+            if (label) label.style.color = "#FF7C7C";
         }
     }
 
     const timeStart = () => {
+        if (count == 0) return;
         const currentTime = new Date();
         updateTime();
         setIsActive(true);
@@ -78,7 +118,7 @@ const Timer = (props: Props) => {
         if (myTimeOutId) clearTimeout(myTimeOutId);
         setIsActive(false);
         setMyTimeOutId(undefined);
-
+        if (label) label.style.color = 'black';
         switch (timertype) {
             case "shortBreak": {
                 setCount(INITIAL_COUNTS_SHORT_BREAK);
@@ -112,6 +152,10 @@ const Timer = (props: Props) => {
         setMinutes(INITIAL_MINUTES_SHORT_BREAK);
         setSeconds(INITIAL_SECONDS_SHORT_BREAK);
         setTimerType("shortBreak");
+        if (label) {
+            label.style.color = 'black';
+            label.classList.remove("fade");
+        }
     }
 
     const setLongBreak = () => {
@@ -122,6 +166,10 @@ const Timer = (props: Props) => {
         setMinutes(INITIAL_MINUTES_LONG_BREAK);
         setSeconds(INITIAL_SECONDS_LONG_BREAK);
         setTimerType("longBreak");
+        if (label) {
+            label.style.color = 'black';
+            label.classList.remove("fade");
+        }
     }
 
     const setWorking = () => {
@@ -132,11 +180,19 @@ const Timer = (props: Props) => {
         setMinutes(INITIAL_MINUTES);
         setSeconds(INITIAL_SECONDS);
         setTimerType("working");
+        if (label) {
+            label.style.color = 'black';
+            label.classList.remove("fade");
+        }
     }
 
     // hooks
     useEffect(() => {
         if (isActive) {
+            if (label) {
+                label.style.color = 'black';
+                label.classList.remove("fade");
+            }
             const newId: timeOutType = setTimeout(updateTime, 1000)
             setMyTimeOutId(newId)
         } else {
@@ -152,7 +208,7 @@ const Timer = (props: Props) => {
         <div className="text-input">
             <input type="text" placeholder="Type here..." className="input input-ghost w-full  input-lg input-customize" onChange={(e) => setCurrEvent(e.target.value)} value={currEvent}/>
         </div>
-            <h1 className="text-center text-timer">{`${minutes}:${seconds}`}</h1>
+            <span id="text-timer" className="text-timer">{`${minutes}:${seconds}`}</span>
             <div className='timer-btn'>
                 <button className="btn btn-lg  btn-outline bg-cover btn-customize bg-no-repeat bg-center" style={{ backgroundImage: `url(${redbg})`, backgroundSize:"30% 80%" }} onClick={() => timeStart()}><span></span>Start</button>
                 <button className="btn btn-lg  btn-outline bg-cover btn-customize bg-no-repeat bg-center" style={{ backgroundImage: `url(${bluebg})`,backgroundSize:"30% 80%" }} onClick={() => timePause()}>Pause </button>

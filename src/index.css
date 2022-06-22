@@ -11,41 +11,49 @@
   }
 }
 
-.test {
-  background: yellow;
+
+/* animation */
+@keyframes fading {
+  0%   {opacity: 1;}
+  50%  {opacity: 0.4;}
+  100% {opacity: 1;}
 }
+
+.fade {
+    animation:fading;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+}
+
 /* Timer */
+.text-timer {
+  display: block;
+  font-size:calc(100px + 11vw);
+  margin: auto;;
+  float: center;
+  width: 50%;
+  text-align: center;
+  /* animation:fading; */
+  animation-iteration-count: infinite;
+}
+
 .timer-btn {
   display: grid;
-  width: 70%;
+  width: 50%;
+
   margin:auto;
   grid-template-columns: auto auto auto;
-  gap:10px;
+  row-gap:1vw;
+}
 
-}
-.text-timer {
-  font-size:calc(100px + 15vw);
-
-}
-.text-event-name {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top:calc(5px + 4vw);
-  font-size:calc(5px + 4vw);
-}
 .text-input {
-  position: absolute;
-  left: 0;
-  right: 0;
+  display:block;
   text-align: center;
-  top:3vw;
-  font-size:calc(5px + 3vw);
 }
 
 .input-customize{
   text-align: center;
-  font-size: 50px;
+  font-size:calc(5px + 3vw);
   width:40%;
 }
 .btn-customize {
@@ -85,31 +93,48 @@
 /* Tree */
 .label-break{
   color: grey;
-  font-size: 15px;
+  font-size: calc(100px + 10vw);
 }
 
 .li-div div {
   display:grid;
   text-align: left; 
-  padding-top:10%;
-  
 }
 
 .li-div label {
-  font-size: 11px;
+  font-size: calc(10px + 0.5vw);
+}
+
+.li-div p {
+  font-size: calc(20px + 1vw);
 }
 
 .steps-div {
-  width:60%;
+  width:50%;
   margin:auto;
   margin-top: 50px;
 }
 
+.isBreak {
+  color: grey;
+}
 
+/* navbar */
+.navbar {
+  display:flex;
+  justify-content: flex-end;
+  gap: 1vw;
+  padding-right:10%;
+  font-size: 30px;
+  text-decoration: underline;
+}
 
 
 @media only screen and (max-width: 1300px) {
   .timer-btn{
+    width: 90%;
+  }
+  .text-timer {
     width: 90%;
   }
   .steps-div {
@@ -117,7 +142,8 @@
   }
   .input-customize{
     text-align: center;
-    font-size: 50px;
+    font-size: 8vw;
     width:90%;
+    height:30%;
   }
 }
