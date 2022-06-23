@@ -10,8 +10,6 @@ type Event = {
   time:string,
   type:string,
 }
-
-
 function App() {
   const [events, setEvents] = useState<Event[]>([]);
   const handleEvents = (newEvent:Event) => {
@@ -19,11 +17,18 @@ function App() {
     console.log(newEvent);
     setEvents(newEvents);
   }
+
+  
   return (
     <div className="App">
       <NavBar />
+      <div id="timer">
       <Timer handleEvents={handleEvents} />
+      </div>
+      <div id="divider" className="divider divider-custom">Records</div>
       <Tree events={events}/>
+      <div>
+</div>
     </div>
   )
 }

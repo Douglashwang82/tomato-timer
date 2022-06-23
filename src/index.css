@@ -12,6 +12,9 @@
 }
 
 
+html {
+  scroll-behavior: smooth;
+}
 /* animation */
 @keyframes fading {
   0%   {opacity: 1;}
@@ -26,6 +29,9 @@
 }
 
 /* Timer */
+#timer {
+  padding-top: 100px;
+}
 .text-timer {
   display: block;
   font-size:calc(100px + 11vw);
@@ -118,18 +124,39 @@
 .isBreak {
   color: grey;
 }
-
-/* navbar */
-.navbar {
-  display:flex;
-  justify-content: flex-end;
-  gap: 1vw;
-  padding-right:10%;
-  font-size: 30px;
-  text-decoration: underline;
+.isBreak p {
+  font-size: calc(10px + 1vw);
 }
 
+/* navbar */
+.icon {
+  width: 20px;
+  height:26px;
+}
+.navbar {
+  height: 10px;
+  position:fixed;
+  display:flex;
+  align-items:center;
+  justify-content: space-around;
+  padding: 0.2rem calc((100vw - 4000px) / 2);
+  font-size: calc(1vw + 20px);
+  text-decoration: underline;
+  align-items:center;
+}
 
+.navbar-menu {
+  gap: 20px;
+}
+
+/* divide */
+
+.divider-custom {
+  width: 50%;
+  margin: auto;
+  padding-top: 50px;
+  font-size:x-large;
+}
 @media only screen and (max-width: 1300px) {
   .timer-btn{
     width: 90%;
@@ -145,5 +172,13 @@
     font-size: 8vw;
     width:90%;
     height:30%;
+  }
+  .divider-custom {
+    width: 90%;
+  }
+
+  .navbar {
+    justify-content: space-between;
+    padding:20px;
   }
 }

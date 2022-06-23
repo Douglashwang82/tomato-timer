@@ -20,16 +20,16 @@ function padTo2Digits(num: number) {
 // data sections
 const INITIAL_MINUTES = "25";
 const INITIAL_SECONDS = "00";
-const INITIAL_COUNTS = 2;
+const INITIAL_COUNTS = 1500;
 const INITIAL_MINUTES_SHORT_BREAK = "05";
 const INITIAL_SECONDS_SHORT_BREAK = "00";
-const INITIAL_COUNTS_SHORT_BREAK = 3;
+const INITIAL_COUNTS_SHORT_BREAK = 300;
 
 const INITIAL_MINUTES_LONG_BREAK = "10";
 const INITIAL_SECONDS_LONG_BREAK = "00";
-const INITIAL_COUNT_LONG_BREAK = 6;
+const INITIAL_COUNT_LONG_BREAK = 600;
 
-const DEFAULT_EVENT = "DEFAULT";
+const DEFAULT_EVENT = "Some work!";
 const PAUSE_RED_LIGHT = "#FF7C7C";
 const PAUSE_RED_DARK = "#FF7C7C";
 
@@ -71,8 +71,14 @@ const Timer = (props: Props) => {
             setIsActive(false);
             switch(timertype){
                 case "working": {
+                    let reEvent = currEvent;
+                    if (currEvent == "") {
+                        reEvent = DEFAULT_EVENT;
+                        setCurrEvent(DEFAULT_EVENT)
+                    }
+
                     props.handleEvents([{
-                        name: currEvent,
+                        name: reEvent,
                         time: timeString,
                         type: "working",
                     }])
